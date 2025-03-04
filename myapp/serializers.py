@@ -12,4 +12,16 @@ class ReceiveSerializer(serializers.ModelSerializer):
         model = Users
         fields = ['CardNumber', 'amount']
         
+class SaveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Users
+        fields = ['inventory']
+
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
+
+
         
